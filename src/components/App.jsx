@@ -4,11 +4,27 @@ import { TitleH2 } from './App.styled';
 import { Filter } from './Filter/Filter';
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import { useSelector } from 'react-redux';
-import { getContacts } from 'redux/contactsSlice';
+import { useDispatch, useSelector } from 'react-redux';
+// import { getContacts } from 'redux/contactsSlice';
+import {
+  selectContactsList,
+  selectError,
+  selectIsLoading,
+} from 'redux/selectors';
+import { useEffect } from 'react';
+import { fetchGetContactsThunk } from 'redux/contactsOperations';
+import { Loader } from './Loader/Loader';
 
 export const App = () => {
-  const contacts = useSelector(getContacts);
+  const contacts = useSelector(selectContactsList);
+  const isLoading = useSelector(selectIsLoading);
+  const error = useSelector(selectError);
+  
+  const dispatch = useDispatch();
+  
+  useEffect(() => {
+    dispatch(fetchGetContactsThunk());
+  }, [dispatch]);
 
   return (
     <div
@@ -28,6 +44,7 @@ export const App = () => {
       {contacts.length > 0 && (
         <>
           <Filter />
+          {isLoading && !error && <Loader/>}
           <ContactList />
         </>
       )}

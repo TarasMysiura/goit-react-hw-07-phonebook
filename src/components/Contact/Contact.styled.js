@@ -17,7 +17,7 @@ export const Span = styled.span`
 export const NumberSpan = styled.span`
 position: absolute;
 top: 0px;
-left: 200px;
+left: 250px;
 
 font-family: 'Roboto', sans-serif;
   color: #111111;
@@ -27,7 +27,7 @@ font-family: 'Roboto', sans-serif;
 export const Button = styled.button`
   position: absolute;
   top: 50%;
-  left: 380px;
+  left: 580px;
 
   transform: translate(-50%, -50%);
 

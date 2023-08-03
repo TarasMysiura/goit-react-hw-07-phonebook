@@ -1,24 +1,23 @@
 import React from 'react';
 import css from './PhonebookForm.module.css';
-
 import { Formik, Form, Field } from 'formik';
 import * as yup from 'yup';
-
 import PropTypes from 'prop-types';
 import { FormError } from 'components/FormError/FormError';
 import { useDispatch, useSelector } from 'react-redux';
 import { toast } from 'react-toastify';
 import { nanoid } from 'nanoid';
-import { addContact, getContacts } from 'redux/contactsSlice';
 import { toastConfig } from 'redux/data';
+import { fetchAddContactsThunk } from 'redux/contactsOperations';
+import { selectContactsList } from 'redux/selectors';
 
 const schema = yup.object().shape({
   name: yup.string('no valid name').required('Required'),
-  number: yup.number('no valid name').required('Required').positive().integer(),
+  phone: yup.number('no valid name').required('Required').positive().integer(),
 });
 
 export const PhonebookForm = ({ title }) => {
-  const contacts = useSelector(getContacts);
+  const contacts = useSelector(selectContactsList);
 
   const dispatch = useDispatch();
 
@@ -37,7 +36,7 @@ export const PhonebookForm = ({ title }) => {
       ...values,
     };
 
-    dispatch(addContact(finalContact));
+    dispatch(fetchAddContactsThunk(finalContact));
   };
 
   const handleSubmit = (values, { resetForm }) => {
@@ -51,7 +50,7 @@ export const PhonebookForm = ({ title }) => {
       <Formik
         initialValues={{
           name: '',
-          number: '',
+          phone: '',
         }}
         onSubmit={handleSubmit}
         validationSchema={schema}
@@ -72,10 +71,10 @@ export const PhonebookForm = ({ title }) => {
             <Field
               className={css.input}
               type="tel"
-              name="number"
+              name="phone"
               autoComplete="true"
             />
-            <FormError name="number" />
+            <FormError name="phone" />
           </label>
 
           <button type="submit" className={css.button}>

@@ -11,3 +11,5 @@ export const toastConfig = {
     fontSize: '16px',
   },
 };
+
+export const DEFAULTS_URL = 'https://64c6c32a0a25021fde91eef7.mockapi.io'

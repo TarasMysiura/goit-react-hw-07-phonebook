@@ -3,10 +3,11 @@ import { Input, Label, Span } from './Filter.styled';
 import { nanoid } from 'nanoid';
 // import PropTypes from 'prop-types';
 import { useDispatch, useSelector } from 'react-redux';
-import { getFilterValue, setFilter } from 'redux/filterSlice';
+import { setFilter } from 'redux/filterSlice';
+import { selectContactsFilter } from 'redux/selectors';
 
 export const Filter = () => {
-  const filterValue = useSelector(getFilterValue);
+  const filterValue = useSelector(selectContactsFilter);
 
   const dispatch = useDispatch();
 

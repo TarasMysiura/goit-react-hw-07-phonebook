@@ -1,7 +1,7 @@
 import { styled } from 'styled-components';
 
 export const Ul = styled.ul`
-  width: 400px;
+  width: 600px;
   /* list-style: none; */
   display: flex;
   flex-direction: column;

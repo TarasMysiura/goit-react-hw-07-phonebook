@@ -2,27 +2,14 @@ import { Contact } from 'components/Contact/Contact';
 import React from 'react';
 import { Ul } from './ContactList.styled';
 import { useSelector } from 'react-redux';
-import { getFilterValue } from 'redux/filterSlice';
-import { getContacts } from 'redux/contactsSlice';
+import { selectFilteredContacts } from 'redux/selectors';
 
 export const ContactList = () => {
-  const contacts = useSelector(getContacts);
-  const filterContacts = useSelector(getFilterValue);
-  
-  const onFilteredContacts = () => {
-    const normalFilter = filterContacts.toLowerCase();
+  const visibleContacts = useSelector(selectFilteredContacts);
 
-    return contacts.filter(contact =>
-      contact.name.toLowerCase().includes(normalFilter)
-    );
-  };
-
-  const filteredContacts = onFilteredContacts();
   return (
     <Ul>
-      <Contact filteredContacts={filteredContacts} />
+      <Contact visibleContacts={visibleContacts} />
     </Ul>
   );
 };
-
-
